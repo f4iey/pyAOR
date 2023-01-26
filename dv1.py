@@ -1,0 +1,28 @@
+# List of functions to control AOR AR-DV1
+import serial
+import pyttsx3
+
+class Command:
+    def __init__(self, name, parameter, desc, result_code = {"20": "Success", "40": "Command format error", "50": "Parameter out of range"}):
+        self.name = name
+        self.param = parameter
+        self.desc = desc
+        self.result_code = result_code
+       # self.engine = pyttsx3.init()
+
+    def send(ser):
+	    ser.write((self.name + self.param + "\r").encode())
+
+    def response(ser, engine):
+	    res = ser.readline().decode()
+        for k in self.result_code.keys():
+	        if res[0:2] == k and k != "20":
+                print(self.result_code[k])
+                return
+        if len(res) <= 5:
+            engine.say(self.desc + " : " + self.param)
+            engine.runAndWait()
+            return
+        engine.say(self.desc + " : " + res[4:])
+        engine.runAndWait()
+        return res [4:]
