@@ -50,5 +50,8 @@ class Commands:
         ln = Command("LN", "", "Contrast")
         pt = Command("PT", "", "Write protect")
         zi = Command("ZI", "", "Receiver ID")
-		lc = Command("LC", "", "Frequency data output")
-
+        lc = Command("LC", "", "Frequency data output")
+        lm = Command("LM", "", "S-meter read")
+        lt = Command("LT", "", "S meter data auto output")
+        re = Command("RE", "", "Result Code")
+        rt = Command("RT", "", "Receiver Status")
