@@ -3,13 +3,13 @@ from dv1 import Command
 
 class Commands:
     def __init__():
-        #whole command list here!
-        rf = Command("RF", "", "Fréquence", {"20": "Success", "30": "Invalid frequency", "40": "Command format error", "50": "Parameter out of range"})
+        #whole command list here
+        rf = Command("RF", "", "Fréquence")
         zp = Command("ZP", "", "Allumage")
         qp = Command("QP", "", "Eteindre") #result code 10?
         ag = Command("AG", "", "Audio Gain")
-        st = Command("ST", "", "Freq step", {"20": "Success", "30": "Invalid setting", "40": "Command format error", "50": "Parameter out of range"})
-        sh = Command("SH", "", "Freq step adjust", {"20": "Success", "30": "Invalid setting", "40": "Command format error", "50": "Parameter out of range"})
+        st = Command("ST", "", "Freq step")
+        sh = Command("SH", "", "Freq step adjust")
         md = Command("MD", "", "Mode")
         zj = Command("ZJ", "", "Précédent")
         zk = Command("ZK", "", "Suivant")
@@ -27,11 +27,28 @@ class Commands:
         dk = Command("DK", "", "Charger le dernier message")
         ac = Command("AC", "", "AGC")
         rg = Command("RG", "", "Gain manuel")
-        ifn = Command("IF", "", "Bande passante IF", {"20": "Success", "30": "Invalid decode mode", "40": "Command format error", "50": "Parameter out of range"})
+        ifn = Command("IF", "", "Bande passante IF")
         ls = Command("LS", "", "Auto Notch")
         nr = Command("NR", "", "Noise Reduction")
         of = Command("OF", "", "Offset RX")
-        ol = Command("OL", "", "Offset freq", {"20": "Success", "30": "Invalid offset frequency", "40": "Command format error", "50": "Parameter out of range"})
+        ol = Command("OL", "", "Offset freq")
         ox = Command("OX", "", "Monitor Offset")
-
+        po = Command("PO", "", "Priority receive")
+        pp = Command("PP", "", "Priority receive channel")
+        ti = Command("TI", "", "Priority receive interval")
+        sc = Command("SC", "", "Descrambler frequency")
+        si = Command("SI", "", "Descrambler ON/OFF")
+        dl = Command("DL", "", "Delay time")
+        fr = Command("FR", "", "Free time")
+        dt = Command("DT", "", "System clock")
+        sp = Command("SP", "", "Sleep timer")
+        tr = Command("TR", "", "Recording timer")
+        bp = Command("BP", "", "Beep")
+        lb = Command("LB", "", "Backlight")
+        ld = Command("LD", "", "Dimmer")
+        kl = Command("KL", "", "Key backlight color")
+        ln = Command("LN", "", "Contrast")
+        pt = Command("PT", "", "Write protect")
+        zi = Command("ZI", "", "Receiver ID")
+		lc = Command("LC", "", "Frequency data output")
 

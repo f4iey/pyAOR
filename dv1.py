@@ -3,11 +3,11 @@ import serial
 import pyttsx3
 
 class Command:
-    def __init__(self, name, parameter, desc, result_code = {"20": "Success", "40": "Command format error", "50": "Parameter out of range"}):
+    def __init__(self, name, parameter, desc):
         self.name = name
         self.param = parameter
         self.desc = desc
-        self.result_code = result_code
+        self.result_code = {"20": "Success", "30": "Not executable", "40": "Command format error", "50": "Parameter out of range", "60": "Unkown command"}
        # self.engine = pyttsx3.init()
 
     def send(ser):
