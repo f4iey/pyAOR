@@ -11,12 +11,12 @@ class Command:
        # self.engine = pyttsx3.init()
 
     def send(ser):
-	    ser.write((self.name + self.param + "\r").encode())
+        ser.write((self.name + self.param + "\r").encode())
 
     def response(ser, engine):
-	    res = ser.readline().decode()
+        res = ser.readline().decode()
         for k in self.result_code.keys():
-	        if res[0:2] == k and k != "20":
+            if res[0:2] == k and k != "20":
                 print(self.result_code[k])
                 return
         if len(res) <= 5:
