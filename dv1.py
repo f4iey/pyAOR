@@ -10,10 +10,10 @@ class Command:
         self.result_code = {"20": "Success", "30": "Not executable", "40": "Command format error", "50": "Parameter out of range", "60": "Unkown command"}
        # self.engine = pyttsx3.init()
 
-    def send(ser):
-        ser.write((self.name + self.param + "\r").encode())
+    def send(self, ser):
+        ser.write((self.name + self.param + "\r").encode('ascii', 'ignore'))
 
-    def response(ser, engine):
+    def response(self, ser, engine):
         res = ser.readline().decode()
         for k in self.result_code.keys():
             if res[0:2] == k and k != "20":

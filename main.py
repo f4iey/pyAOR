@@ -1,5 +1,6 @@
 import serial
 import pyttsx3
+from Commands import *
 
 # Initialisation de la synthèse vocale
 engine = pyttsx3.init()
@@ -8,7 +9,7 @@ engine = pyttsx3.init()
 ser = serial.Serial("/dev/ttyUSB0", baudrate=115200)
 
 # Première commande pour afficher la fréquence
-rf = Command("RF", "", "Fréquence", {"20": "Success", "30": "Invalid frequency", "40": "Command format error", "50": "Parameter out of range"})
+Commands = Commands()
 rf.send(ser)
 print(rf.response(ser, engine))
 
