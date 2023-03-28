@@ -19,6 +19,15 @@ class Command:
             if res[0:2] == k and k != "20":
                 print(self.result_code[k])
                 return
+        # Exception for frequency tts
+        if res[2:4] == "RF":
+            f = (res[4:12].replace('.',',') + '.' + res[12:len(res)-3]).lstrip('0')
+            unit = "mégahertz"
+            if len(f) == 7:
+                unit = "kilohertz"
+            engine.say(self.desc + " : " + f.lstrip(',').rstrip('0').rstrip('.').rstrip('0') + ' ' + unit)
+            engine.runAndWait()
+            return
         if len(res) <= 5:
             engine.say(self.desc + " : " + self.param)
             engine.runAndWait()
