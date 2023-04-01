@@ -24,6 +24,8 @@ Commands = Commands()
 #ser = serial.Serial("/dev/ttyUSB0", baudrate=115200)
 Commands.rf.send(ser)
 print(Commands.rf.response(ser, engine))
+Commands.md.send(ser)
+print(Commands.md.response(ser, engine))
 
 # Fermeture du port série
 ser.close()
