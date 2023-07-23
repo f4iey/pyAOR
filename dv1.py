@@ -26,6 +26,7 @@ class Command:
             if len(f) == 7:
                 unit = "kilohertz"
             engine.say(f.lstrip(',').rstrip('0').rstrip('.').rstrip('0') + ' ' + unit)
+            print(f.lstrip(',').rstrip('0').rstrip('.').rstrip('0') + ' ' + unit)
             engine.runAndWait()
             return res [4:]
         elif res[2:4] == "MD":
