@@ -11,14 +11,8 @@ class Digimatel:
         self.engine = pyttsx3.init()
         self.engine.setProperty('voice', 'french+f4')
         self.engine.setProperty('rate', 150)
-        keyboard.add_hotkey("num enter", self.get_freq_mode)
-        keyboard.add_hotkey("numlock", self.numlock)
-        keyboard.add_hotkey("num minus", self.minus)
-        keyboard.add_hotkey("6", self.other_hotkey)
-        keyboard.add_hotkey("4", self.other_hotkey)
+        self.inputk = self.record_keyboard_input()
 
-        keyboard.wait()  # Attends jusqu'à ce que l'utilisateur appuie sur une touche pour arrêter le programme
-        keyboard.unhook_all()  # Libère les raccourcis clavier
     def get_freq_mode(self):
         self.command.rf.send(self.ser)
         self.command.rf.response(self.ser, self.engine)
@@ -30,5 +24,49 @@ class Digimatel:
     def minus(self):
         self.engine.say("Commande annulée")
         self.engine.runAndWait()
-    def other_hotkey(self):
-        pass
+
+    def record_keyboard_input(self):
+        recorded_text = ""
+
+        while True:
+            try:
+                event = keyboard.read_event()
+                if event.event_type == keyboard.KEY_DOWN:
+                    # Append the pressed key to the recorded_text string
+                    recorded_text += event.name
+                    # If Enter key is pressed, break the loop and stop recording
+                    if event.name == "enter":
+                        if recorded_text == "enter":
+                            self.get_freq_mode()
+                            recorded_text = ""
+                            continue
+                        match(recorded_text):
+                            case "01enter":
+                                #USB
+                                self.command.md.param = "004"
+                                self.command.md.send(self.ser)
+                                self.engine.say("OK, USB")
+                                self.engine.runAndWait()
+                                self.command.md.param = ""
+                            case "02enter":
+                                #LSB
+                                self.command.md.param = "005"
+                                self.command.md.send(self.ser)
+                                self.engine.say("OK, LSB")
+                                self.engine.runAndWait()
+                                self.command.md.param = ""
+                            case _:
+                                self.engine.say("Commande inconnue")
+                                self.engine.runAndWait()
+                        recorded_text = ""
+                    elif event.name == "-":
+                        self.minus()
+                        recorded_text = ""
+                    else:
+                        self.engine.say(event.name)
+                        self.engine.runAndWait()
+            except KeyboardInterrupt:
+                # Exit the loop if Ctrl+C is pressed
+                break
+
+        return recorded_text
