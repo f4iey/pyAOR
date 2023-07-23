@@ -41,6 +41,13 @@ class Digimatel:
                             recorded_text = ""
                             continue
                         match(recorded_text):
+                            case "00enter":
+                                #Auto
+                                self.command.md.param = "000"
+                                self.command.md.send(self.ser)
+                                self.engine.say("OK, Décodage Automatique")
+                                self.engine.runAndWait()
+                                self.command.md.param = ""
                             case "01enter":
                                 #USB
                                 self.command.md.param = "004"
@@ -53,6 +60,27 @@ class Digimatel:
                                 self.command.md.param = "005"
                                 self.command.md.send(self.ser)
                                 self.engine.say("OK, LSB")
+                                self.engine.runAndWait()
+                                self.command.md.param = ""
+                            case "03enter":
+                                #CW
+                                self.command.md.param = "006"
+                                self.command.md.send(self.ser)
+                                self.engine.say("OK, CW")
+                                self.engine.runAndWait()
+                                self.command.md.param = ""
+                            case "08enter":
+                                #AM
+                                self.command.md.param = "001"
+                                self.command.md.send(self.ser)
+                                self.engine.say("OK, A aime")
+                                self.engine.runAndWait()
+                                self.command.md.param = ""
+                            case "09enter":
+                                #DSTAR
+                                self.command.md.param = "110"
+                                self.command.md.send(self.ser)
+                                self.engine.say("OK, D-STAR")
                                 self.engine.runAndWait()
                                 self.command.md.param = ""
                             case _:
