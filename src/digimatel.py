@@ -61,6 +61,25 @@ class Digimatel:
                                 self.command.md.send_param(self.ser, "006")
                                 self.engine.say("OK, CW")
                                 self.engine.runAndWait()
+                            case "04enter":
+                                #FM30
+                                self.command.md.send_param(self.ser, "0F0")
+                                self.command.ifn.send_param(self.ser, "2")
+                                self.command.ifn.response(self.ser, self.engine)
+                                self.engine.say("OK, FM")
+                                self.engine.runAndWait()
+                            case "05enter":
+                                #FM15
+                                self.command.md.send_param(self.ser, "0F0")
+                                self.engine.say("OK, FM")
+                                self.engine.runAndWait()
+                            case "06enter":
+                                #FM6
+                                self.command.md.send_param(self.ser, "0F0")
+                                self.command.ifn.send_param(self.ser, "4")
+                                self.command.ifn.response(self.ser, self.engine)
+                                self.engine.say("OK, FM")
+                                self.engine.runAndWait()
                             case "07enter":
                                 #WFM
                                 self.command.md.send_param(self.ser, "0F0")
