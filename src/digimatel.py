@@ -1,4 +1,5 @@
 # List of functions and shortcuts for DIGIMATEL Keyboard
+import os
 import keyboard
 import serial
 import pyttsx3
@@ -97,6 +98,27 @@ class Digimatel:
                                 self.command.md.send_param(self.ser, "110")
                                 self.engine.say("OK, D-STAR")
                                 self.engine.runAndWait()
+                            case "*4enter":
+                                # Niveau de volume 1
+                                os.system("pactl set-sink-volume 0 25%")
+                                self.engine.say("OK, Niveau 1")
+                                self.engine.runAndWait()
+                            case "*44enter":
+                                # Niveau de volume 1
+                                os.system("pactl set-sink-volume 0 50%")
+                                self.engine.say("OK, Niveau 2")
+                                self.engine.runAndWait()
+                            case "*444enter":
+                                # Niveau de volume 1
+                                os.system("pactl set-sink-volume 0 75%")
+                                self.engine.say("OK, Niveau 3")
+                                self.engine.runAndWait()
+                            case "*4444enter":
+                                # Niveau de volume 1
+                                os.system("pactl set-sink-volume 0 95%")
+                                self.engine.say("OK, Niveau 4")
+                                self.engine.runAndWait()
+
                             case _:
                                 self.engine.say("Commande inconnue")
                                 self.engine.runAndWait()
