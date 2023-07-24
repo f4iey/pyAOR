@@ -16,7 +16,7 @@ class Command:
 
     def send_param(self, ser, pParam):
         self.param = pParam
-        self.send(self.ser)
+        self.send(ser)
         # reset param to blank
         self.param = ""
 
