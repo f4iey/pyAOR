@@ -51,7 +51,7 @@ class Digimatel:
                             # place decimal point to the center of the string to send
                             recorded_text = recorded_text[0:len(recorded_text)//2] + '.' + recorded_text[len(recorded_text)//2:]
                             # send
-                            self.rf.send_param(self.ser, recorded_text)
+                            self.command.rf.send_param(self.ser, recorded_text)
                             self.engine.say("OK, mode VFO")
                             self.engine.runAndWait()
                             continue
@@ -139,6 +139,16 @@ class Digimatel:
                         recorded_text = ""
                     elif event.name == "-":
                         self.minus()
+                        recorded_text = ""
+                    elif recorded_text == ".0":
+                        # Lire le S-metre
+                        self.command.lm.send(self.ser)
+                        self.command.lm.response(self.ser, self.engine)
+                        recorded_text = ""
+                    elif recorded_text == ".1":
+                        # Lire le mode uniqement
+                        self.command.md.send(self.ser)
+                        self.command.md.response(self.ser, self.engine)
                         recorded_text = ""
                     else:
                         self.engine.say(event.name)
