@@ -41,6 +41,20 @@ class Digimatel:
                             self.get_freq_mode()
                             recorded_text = ""
                             continue
+                        elif recorded_text.find('.') and len(recorded_text[0:len(recorded_text)-5]) <= 10:
+                            recorded_text = recorded_text[0:len(recorded_text)-5]
+                            # filling zeros
+                            for i in range(10 - len(recorded_text)):
+                                recorded_text = '0' + recorded_text
+                            # removing decimal point
+                            recorded_text.replace('.', '')
+                            # place decimal point to the center of the string to send
+                            recorded_text = recorded_text[0:len(recorded_text)//2] + '.' + recorded_text[len(recorded_text)//2:]
+                            # send
+                            self.rf.send_param(self.ser, recorded_text)
+                            self.engine.say("OK, mode VFO")
+                            self.engine.runAndWait()
+                            continue
                         match(recorded_text):
                             case "00enter":
                                 #Auto
