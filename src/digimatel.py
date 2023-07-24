@@ -43,46 +43,41 @@ class Digimatel:
                         match(recorded_text):
                             case "00enter":
                                 #Auto
-                                self.command.md.param = "000"
-                                self.command.md.send(self.ser)
+                                self.command.md.send_param(self.ser, "000")
                                 self.engine.say("OK, Décodage Automatique")
                                 self.engine.runAndWait()
-                                self.command.md.param = ""
                             case "01enter":
                                 #USB
-                                self.command.md.param = "004"
-                                self.command.md.send(self.ser)
+                                self.command.md.send_param(self.ser, "004")
                                 self.engine.say("OK, USB")
                                 self.engine.runAndWait()
-                                self.command.md.param = ""
                             case "02enter":
                                 #LSB
-                                self.command.md.param = "005"
-                                self.command.md.send(self.ser)
+                                self.command.md.send_param(self.ser, "005")
                                 self.engine.say("OK, LSB")
                                 self.engine.runAndWait()
-                                self.command.md.param = ""
                             case "03enter":
                                 #CW
-                                self.command.md.param = "006"
-                                self.command.md.send(self.ser)
+                                self.command.md.send_param(self.ser, "006")
                                 self.engine.say("OK, CW")
                                 self.engine.runAndWait()
-                                self.command.md.param = ""
+                            case "07enter":
+                                #WFM
+                                self.command.md.send_param(self.ser, "0F0")
+                                self.command.ifn.send_param(self.ser, "1")
+                                self.command.ifn.response(self.ser, self.engine)
+                                self.engine.say("OK, WFM")
+                                self.engine.runAndWait()
                             case "08enter":
                                 #AM
-                                self.command.md.param = "001"
-                                self.command.md.send(self.ser)
+                                self.command.md.send_param(self.ser, "001")
                                 self.engine.say("OK, A aime")
                                 self.engine.runAndWait()
-                                self.command.md.param = ""
                             case "09enter":
                                 #DSTAR
-                                self.command.md.param = "110"
-                                self.command.md.send(self.ser)
+                                self.command.md.send_param(self.ser, "110")
                                 self.engine.say("OK, D-STAR")
                                 self.engine.runAndWait()
-                                self.command.md.param = ""
                             case _:
                                 self.engine.say("Commande inconnue")
                                 self.engine.runAndWait()

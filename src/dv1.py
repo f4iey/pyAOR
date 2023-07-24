@@ -14,6 +14,12 @@ class Command:
     def send(self, ser):
         ser.write((self.name + self.param + "\r").encode('ascii', 'ignore'))
 
+    def send_param(self, ser, pParam):
+        self.param = pParam
+        self.send(self.ser)
+        # reset param to blank
+        self.param = ""
+
     def response(self, ser, engine):
         res = ser.readline().decode()
         for k in self.result_code.keys():
