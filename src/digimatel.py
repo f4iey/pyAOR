@@ -35,25 +35,40 @@ class Digimatel:
                 if event.event_type == keyboard.KEY_DOWN:
                     # Append the pressed key to the recorded_text string
                     recorded_text += event.name
+                    if event.name == "-":
+                        self.minus()
+                        recorded_text = ""
+                    elif recorded_text == ".0":
+                        # Lire le S-metre
+                        self.command.lm.send(self.ser)
+                        print(self.command.lm.response(self.ser, self.engine))
+                        recorded_text = ""
+                    elif recorded_text == ".1":
+                        # Lire le mode uniqement
+                        self.command.md.send(self.ser)
+                        self.command.md.response(self.ser, self.engine)
+                        recorded_text = ""
+
                     # If Enter key is pressed, break the loop and stop recording
-                    if event.name == "enter":
+                    elif event.name == "enter":
                         if recorded_text == "enter":
                             self.get_freq_mode()
                             recorded_text = ""
                             continue
-                        elif recorded_text.find('.') and len(recorded_text[0:len(recorded_text)-5]) <= 10:
+                        elif recorded_text.find('.') != -1 and len(recorded_text[0:len(recorded_text)-5]) <= 10:
                             recorded_text = recorded_text[0:len(recorded_text)-5]
                             # filling zeros
                             for i in range(10 - len(recorded_text)):
                                 recorded_text = '0' + recorded_text
                             # removing decimal point
-                            recorded_text.replace('.', '')
+                            recorded_text = recorded_text.replace('.', '')
                             # place decimal point to the center of the string to send
                             recorded_text = recorded_text[0:len(recorded_text)//2] + '.' + recorded_text[len(recorded_text)//2:]
                             # send
                             self.command.rf.send_param(self.ser, recorded_text)
                             self.engine.say("OK, mode VFO")
                             self.engine.runAndWait()
+                            recorded_text = ""
                             continue
                         match(recorded_text):
                             case "00enter":
@@ -132,23 +147,6 @@ class Digimatel:
                                 os.system("pactl set-sink-volume 0 95%")
                                 self.engine.say("OK, Niveau 4")
                                 self.engine.runAndWait()
-
-                            case _:
-                                self.engine.say("Commande inconnue")
-                                self.engine.runAndWait()
-                        recorded_text = ""
-                    elif event.name == "-":
-                        self.minus()
-                        recorded_text = ""
-                    elif recorded_text == ".0":
-                        # Lire le S-metre
-                        self.command.lm.send(self.ser)
-                        self.command.lm.response(self.ser, self.engine)
-                        recorded_text = ""
-                    elif recorded_text == ".1":
-                        # Lire le mode uniqement
-                        self.command.md.send(self.ser)
-                        self.command.md.response(self.ser, self.engine)
                         recorded_text = ""
                     else:
                         self.engine.say(event.name)
